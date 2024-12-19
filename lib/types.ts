@@ -49,6 +49,7 @@ export interface SelectedTool {
 
 export interface BaseToolDefinition {
   modelToolName?: string;
+  timeout?: string;
   description: string;
   dynamicParameters?: DynamicParameter[];
   staticParameters?: StaticParameter[];
@@ -132,14 +133,19 @@ export interface DemoConfig {
   callConfig: CallConfig;
 }
 
-// For our order details component
-export interface OrderItem {
-  name: string;
-  quantity: number;
-  specialInstructions?: string;
-  price: number;
+// For our calendar details component
+export interface CalendarEvent {
+  id?: string;
+  summary?: string;
+  start?: { dateTime?: string };
+  end?: { dateTime?: string };
+  eventId?: string;
 }
-export interface OrderDetailsData {
-  items: OrderItem[];
-  totalAmount: number;
+export interface calendarActionData {
+  items: CalendarEvent[];
+  
+}
+
+export interface weatherQuery {
+  location?: string;
 }

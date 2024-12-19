@@ -17,6 +17,21 @@ const config: Config = {
         sans: ['ReplicaLL'],
         mono: ['ReplicaLLMono'],
       },
+      colors: {
+        customBrown: {
+          DEFAULT: '#A88E4F',    // Main color value
+          50: '#F4EFE9',         // Lighter shades
+          100: '#fcf5e2',
+          200: '#D7C7B2',
+          300: '#C8B396',
+          400: '#BA9F7A',
+          500: '#A88E4F',        // Original color
+          600: '#8C763D',
+          700: '#705E30',
+          800: '#544622',
+          900: '#382F15',
+        },
+      },
     },
   },
   plugins: [],

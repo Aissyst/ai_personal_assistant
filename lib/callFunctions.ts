@@ -1,6 +1,9 @@
 'use client';
 import { UltravoxSession, UltravoxSessionStatus, Transcript, UltravoxExperimentalMessageEvent, Role } from 'ultravox-client';
 import { JoinUrlResponse, CallConfig } from '@/lib/types';
+import { updateCalendarTool } from '@/lib/clientTools';
+import { getWeatherTool } from '@/lib/clientTools';
+import { gmailTool } from '@/lib/gmailTool';
 
 let uvSession: UltravoxSession | null = null;
 const debugMessages: Set<string> = new Set(["debug"]);
@@ -71,6 +74,25 @@ export async function startCall(callbacks: CallCallbacks, callConfig: CallConfig
 
     // Start up our Ultravox Session
     uvSession = new UltravoxSession({ experimentalMessages: debugMessages });
+    
+    // Register our tool for order details
+    uvSession.registerToolImplementation(
+      "updateCalendar",
+      updateCalendarTool
+    );
+
+    // Register tool get weather
+    uvSession.registerToolImplementation(
+      "getWeather",
+      getWeatherTool
+    );
+
+    // Register the new Gmail tool
+    uvSession.registerToolImplementation(
+      "gmailTool", 
+      gmailTool
+    );
+    
 
     if(showDebugMessages) {
       console.log('uvSession created:', uvSession);
@@ -80,14 +102,17 @@ export async function startCall(callbacks: CallCallbacks, callConfig: CallConfig
     if (uvSession) {
       uvSession.addEventListener('status', (event: any) => {
         callbacks.onStatusChange(uvSession?.status);
+        
       });
   
       uvSession.addEventListener('transcripts', (event: any) => {
         callbacks.onTranscriptChange(uvSession?.transcripts);
+        // console.log('uvSession transcript:', uvSession?.transcripts);
       });
   
       uvSession.addEventListener('experimental_message', (msg: any) => {
         callbacks?.onDebugMessage?.(msg);
+        console.log('Experimental Message:', msg);
       });
 
       uvSession.joinCall(joinUrl);
@@ -107,4 +132,11 @@ export async function endCall(): Promise<void> {
     uvSession.leaveCall();
     uvSession = null;
   }
+
+  // Dispatch a custom event when the call ends so that we can clear the order details form
+  if (typeof window !== 'undefined') {
+    const event = new CustomEvent('callEnded');
+    window.dispatchEvent(event);
+  }
+
 }

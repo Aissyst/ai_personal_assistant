@@ -22,7 +22,7 @@ const MicToggleButton: React.FC<MicToggleButtonProps> = ({ role }) => {
   return (
     <button
       onClick={toggleMic}
-      className="flex-grow flex items-center justify-center border-2 h-10 hover:bg-gray-700"
+      className="flex-grow flex items-center justify-center bg-customBrown-500 border-2 h-10 hover:bg-customBrown-700"
     >
       {isMuted ? (
         <>

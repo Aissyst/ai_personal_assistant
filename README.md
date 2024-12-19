@@ -1,5 +1,3 @@
-# Ultravox API Tutorial:  Building Interactive UI with Client Tools
-This repo serves as the starting point for the [tutorial](https://docs.ultravox.ai/guides/clienttoolstutorial) from the Ultravox documentation.
 
 ## Set-up
 1. Add an Ultravox API key
@@ -12,10 +10,3 @@ This repo serves as the starting point for the [tutorial](https://docs.ultravox.
 1. Run the app with `pnpm dev`.
 
 
-## Query Params
-| What | Parameter | Notes |
-|--------|--------|---------|
-|**Debug Logging**|`showDebugMessages=true`| Turns on some additional console logging.|
-|**Speaker Mute Toggle**|`showSpeakerMute=true`| Shows the speaker mute button.|
-|**Change Model**|`model=ultravox-70B`|Changes the model to what is specified. Note: the app will prepend `fixie-ai/` to the value.|
-|**Enable User Transcripts**|`showUserTranscripts=true`|Displays user transcripts. Otherwise, only Ultravox/agent transcripts are shown.|
